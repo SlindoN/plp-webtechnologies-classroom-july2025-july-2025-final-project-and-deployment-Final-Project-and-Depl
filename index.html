@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S'lindokuhle Nzimande - Software Developer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --mint: #B4E7CE;
+            --lavender: #E5D4ED;
+            --peach: #FFD4B2;
+            --sky: #C4E7F5;
+            --lemon: #FFF5BA;
+            --white: #FEFEFE;
+            --gray: #6B7280;
+            --dark: #2D3748;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: var(--white);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(254, 254, 254, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            padding: 0.5rem 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--mint), var(--lavender));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--mint), var(--lavender));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--dark);
+            transition: all 0.3s ease;
+            border-radius: 3px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        /* Floating Background Elements */
+        .bg-element {
+            position: fixed;
+            border-radius: 50%;
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: -1;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .bg-element:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            background: var(--mint);
+            top: 10%;
+            left: -100px;
+            animation-delay: 0s;
+        }
+
+        .bg-element:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            background: var(--lavender);
+            top: 50%;
+            right: -50px;
+            animation-delay: 5s;
+        }
+
+        .bg-element:nth-child(3) {
+            width: 250px;
+            height: 250px;
+            background: var(--peach);
+            bottom: 10%;
+            left: 30%;
+            animation-delay: 10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(30px, -30px) scale(1.1); }
+            50% { transform: translate(-20px, 20px) scale(0.9); }
+            75% { transform: translate(20px, 30px) scale(1.05); }
+        }
+
+        /* Main Content Container */
+        main {
+            margin-top: 80px;
+        }
+
+        .page {
+            display: none;
+            min-height: calc(100vh - 80px);
+            padding: 2rem;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Home Page */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: calc(100vh - 160px);
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--mint), var(--lavender), var(--peach));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-content .typing {
+            font-size: 1.5rem;
+            color: var(--gray);
+            margin-bottom: 2rem;
+            min-height: 2.5rem;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: var(--gray);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--mint), var(--lavender));
+            color: var(--dark);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(180, 231, 206, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--mint);
+            color: var(--dark);
+        }
+
+        .btn-secondary:hover {
+            background: var(--mint);
+            transform: translateY(-3px);
+        }
+
+        /* About Page */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .about-card {
+            background: linear-gradient(135deg, rgba(180, 231, 206, 0.1), rgba(229, 212, 237, 0.1));
+            padding: 2rem;
+            border-radius: 20px;
+            border: 2px solid rgba(180, 231, 206, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .about-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(180, 231, 206, 0.2);
+        }
+
+        .about-card h3 {
+            color: var(--dark);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .skill-item {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px solid var(--mint);
+            transition: all 0.3s ease;
+        }
+
+        .skill-item:hover {
+            background: var(--mint);
+            transform: scale(1.05);
+        }
+
+        .skill-item:nth-child(2n) {
+            border-color: var(--lavender);
+        }
+
+        .skill-item:nth-child(2n):hover {
+            background: var(--lavender);
+        }
+
+        .skill-item:nth-child(3n) {
+            border-color: var(--peach);
+        }
+
+        .skill-item:nth-child(3n):hover {
+            background: var(--peach);
+        }
+
+        /* Projects Page */
+        .filter-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid var(--mint);
+            background: transparent;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: var(--mint);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            border-color: var(--mint);
+        }
+
+        .project-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--mint), var(--lavender));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--white);
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        .project-content h3 {
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+        }
+
+        .tag {
+            padding: 0.25rem 0.75rem;
+            background: var(--lemon);
+            border-radius: 15px;
+            font-size: 0.85rem;
+            color: var(--dark);
+        }
+
+        /* Blog Page */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .blog-card {
+            background: linear-gradient(135deg, rgba(196, 231, 245, 0.2), rgba(255, 245, 186, 0.2));
+            border-radius: 20px;
+            padding: 2rem;
+            border: 2px solid var(--sky);
+            transition: all 0.3s ease;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(196, 231, 245, 0.3);
+        }
+
+        .blog-date {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-card h3 {
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .read-more {
+            color: var(--dark);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .read-more:hover {
+            gap: 1rem;
+        }
+
+        /* Contact Page */
+        .contact-container {
+            max-width: 800px;
+            margin: 2rem auto;
+        }
+
+        .contact-intro {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .contact-intro h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--mint), var(--lavender));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .contact-form {
+            background: linear-gradient(135deg, rgba(180, 231, 206, 0.1), rgba(229, 212, 237, 0.1));
+            padding: 3rem;
+            border-radius: 20px;
+            border: 2px solid var(--mint);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--mint);
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: var(--white);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--lavender);
+            box-shadow: 0 0 0 3px rgba(229, 212, 237, 0.2);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .error {
+            color: #e74c3c;
+            font-size: 0.9rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .social-link {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 2px solid;
+        }
+
+        .social-link:nth-child(1) {
+            background: var(--mint);
+            border-color: var(--mint);
+            color: var(--dark);
+        }
+
+        .social-link:nth-child(2) {
+            background: var(--lavender);
+            border-color: var(--lavender);
+            color: var(--dark);
+        }
+
+        .social-link:nth-child(3) {
+            background: var(--peach);
+            border-color: var(--peach);
+            color: var(--dark);
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .success-message {
+            display: none;
+            background: linear-gradient(135deg, var(--mint), var(--lavender));
+            color: var(--dark);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+            margin-top: 2rem;
+            animation: slideDown 0.5s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Section Headings */
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--mint), var(--lavender), var(--peach));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--gray);
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                flex-direction: column;
+                background: rgba(254, 254, 254, 0.98);
+                width: 100%;
+                padding: 2rem;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+                transition: left 0.3s ease;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content .typing {
+                font-size: 1.2rem;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .projects-grid,
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-form {
+                padding: 2rem 1.5rem;
+            }
+
+            .social-links {
+                gap: 1rem;
+            }
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Elements -->
+    <div class="bg-element"></div>
+    <div class="bg-element"></div>
+    <div class="bg-element"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">SN</div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="nav-link active" data-page="home">Home</a></li>
+                <li><a href="#about" class="nav-link" data-page="about">About</a></li>
+                <li><a href="#projects" class="nav-link" data-page="projects">Projects</a></li>
+                <li><a href="#blog" class="nav-link" data-page="blog">Blog</a></li>
+                <li><a href="#contact" class="nav-link" data-page="contact">Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Home Page -->
+        <section class="page active" id="home">
+            <div class="hero">
+                <div class="hero-content">
+                    <h1>Hi, I'm S'lindokuhle Nzimande</h1>
+                    <div class="typing" id="typing"></div>
+                    <p>Welcome to my digital garden where I share my journey of growth, learning, and creating beautiful software solutions.</p>
+                    <div class="cta-buttons">
+                        <a href="#projects" class="btn btn-primary" data-page="projects">View My Work</a>
+                        <a href="#contact" class="btn btn-secondary" data-page="contact">Get In Touch</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Page -->
+        <section class="page" id="about">
+            <div class="container">
+                <h2 class="section-title">About Me</h2>
+                <p class="section-subtitle">Growing through code, one commit at a time 🌱</p>
+                
+                <div class="about-grid">
+                    <div class="about-card">
+                        <h3>🌸 My Journey</h3>
+                        <p>I'm a passionate software developer who believes in continuous growth and learning. Like a spring garden, I nurture my skills daily, embracing new technologies and challenges with enthusiasm. My journey in tech has been about building solutions that matter and creating meaningful digital experiences.</p>
+                    </div>
+                    
+                    <div class="about-card">
+                        <h3>💡 My Philosophy</h3>
+                        <p>I approach development with creativity and attention to detail. Every project is an opportunity to learn, grow, and create something beautiful. I believe in writing clean, maintainable code and designing interfaces that users love to interact with.</p>
+                    </div>
+                </div>
+
+                <h3 class="section-subtitle" style="margin-top: 3rem;">Technologies I Work With</h3>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">🌐</div>
+                        <strong>HTML5 & CSS3</strong>
+                    </div>
+                    <div class="skill-item">
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">⚡</div>
+                        <strong>JavaScript</strong>
+                    </div>
+                    <div class="skill-item">
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">⚛️</div>
+                        <strong>React</strong>
+                    </div>
+                    <div class="skill-item">
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">🎨</div>
+                        <strong>UI/UX Design</strong>
+                    </div>
+                    <div class="skill-item">
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">📱</div>
+                        <strong>Responsive Design</strong>
+                    </div>
+                    <div class="skill-item">
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">🔧</div>
+                        <strong>Git & GitHub</strong>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Page -->
+        <section class="page" id="projects">
+            <div class="container">
+                <h2 class="section-title">My Projects</h2>
+                <p class="section-subtitle">Seeds planted, ideas blossomed 🌼</p>
+
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">All Projects</button>
+                    <button class="filter-btn" data-filter="web">Web Apps</button>
+                    <button class="filter-btn" data-filter="frontend">Frontend</button>
+                    <button class="filter-btn" data-filter="fullstack">Full Stack</button>
+                </div>
+
+                <div class="projects-grid" id="projectsGrid">
+                    <div class="project-card" data-category="web frontend">
+                        <div class="project-image">🌸</div>
+                        <div class="project-content">
+                            <h3>Portfolio Website</h3>
+                            <p>A beautiful, responsive portfolio showcasing my journey with pastel spring aesthetics. Features smooth animations and interactive elements.</p>
+                            <div class="project-tags">
+                                <span class="tag">HTML5</span>
+                                <span class="tag">CSS3</span>
+                                <span class="tag">JavaScript</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-card" data-category="web frontend">
+                        <div class="project-image" style="background: linear-gradient(135deg, var(--sky), var(--lemon));">🎯</div>
+                        <div class="project-content">
+                            <h3>Task Manager App</h3>
+                            <p>An intuitive task management application with drag-and-drop functionality, priority sorting, and local storage persistence.</p>
+                            <div class="project-tags">
+                                <span class="tag">JavaScript</span>
+                                <span class="tag">LocalStorage</span>
+                                <span class="tag">CSS Grid</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-card" data-category="frontend">
+                        <div class="project-image" style="background: linear-gradient(135deg, var(--peach), var(--lavender));">🎨</div>
+                        <div class="project-content">
+                            <h3>Design System Library</h3>
+                            <p>A comprehensive component library featuring reusable UI elements with consistent styling and accessibility best practices.</p>
+                            <div class="project-tags">
+                                <span class="tag">React</span>
+                                <span class="tag">CSS Modules</span>
+                                <span class="tag">Storybook</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-card" data-category="web fullstack">
+                        <div class="project-image" style="background: linear-gradient(135deg, var(--lemon), var(--mint));">📚</div>
+                        <div class="project-content">
+                            <h3>Learning Journal</h3>
+                            <p>A personal blog platform where I document my coding journey, share tutorials, and connect with fellow developers.</p>
+                            <div class="project-tags">
+                                <span class="tag">Node.js</span>
+                                <span class="tag">Express</span>
+                                <span class="tag">MongoDB</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-card" data-category="frontend web">
+                        <div class="project-image" style="background: linear-gradient(135deg, var(--lavender), var(--sky));">🌤️</div>
+                        <div class="project-content">
+                            <h3>Weather Dashboard</h3>
+                            <p>Real-time weather application with beautiful visualizations, forecasts, and location-based updates using API integration.</p>
+                            <div class="project-tags">
+                                <span class="tag">API Integration</span>
+                                <span class="tag">Charts.js</span>
+                                <span class="tag">Responsive</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-card" data-category="frontend">
+                        <div class="project-image" style="background: linear-gradient(135deg, var(--mint), var(--peach));">🎮</div>
+                        <div class="project-content">
+                            <h3>Interactive Quiz App</h3>
+                            <p>An engaging quiz application with timer functionality, score tracking, and dynamic question rendering.</p>
+                            <div class="project-tags">
+                                <span class="tag">JavaScript</span>
+                                <span class="tag">JSON</span>
+                                <span class="tag">Animations</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog Page -->
+        <section class="page" id="blog">
+            <div class="container">
+                <h2 class="section-title">Learning Blog</h2>
+                <p class="section-subtitle">Documenting growth, sharing knowledge 📖</p>
+
+                <div class="blog-grid">
+                    <div class="blog-card">
+                        <div class="blog-date">🌱 December 2024</div>
+                        <h3>My First Steps in Web Development</h3>
+                        <p>Reflecting on my journey from writing my first HTML tag to building complete responsive websites. The challenges, victories, and lessons learned along the way.</p>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+
+                    <div class="blog-card">
+                        <div class="blog-date">🌸 November 2024</div>
+                        <h3>Understanding CSS Flexbox and Grid</h3>
+                        <p>A deep dive into modern CSS layout techniques. How mastering these tools transformed the way I approach responsive design and UI composition.</p>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+
+                    <div class="blog-card">
+                        <div class="blog-date">🌼 October 2024</div>
+                        <h3>JavaScript: From Basics to DOM Manipulation</h3>
+                        <p>Exploring the fundamentals of JavaScript and how it brings web pages to life. Interactive examples and practical tips for beginners.</p>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+
+                    <div class="blog-card">
+                        <div class="blog-date">🌻 September 2024</div>
+                        <h3>Building My First Portfolio Website</h3>
+                        <p>The exciting journey of creating a personal portfolio from scratch. Design decisions, technical challenges, and the joy of seeing my work come to life.</p>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+
+                    <div class="blog-card">
+                        <div class="blog-date">🌿 August 2024</div>
+                        <h3>Git & GitHub: Version Control Essentials</h3>
+                        <p>Learning to collaborate and manage code effectively. A beginner's guide to version control and why every developer should master these tools.</p>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+
+                    <div class="blog-card">
+                        <div class="blog-date">💚 July 2024</div>
+                        <h3>Responsive Design Principles</h3>
+                        <p>Creating websites that look beautiful on any device. Mobile-first approach, breakpoints, and best practices for modern web development.</p>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Page -->
+        <section class="page" id="contact">
+            <div class="contact-container">
+                <div class="contact-intro">
+                    <h2>Let's Grow Together</h2>
+                    <p class="section-subtitle">Have a project in mind? Want to collaborate? I'd love to hear from you! 🌱</p>
+                </div>
+
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" required>
+                        <div class="error" id="nameError">Please enter your name</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Your Email</label>
+                        <input type="email" id="email" name="email" required>
+                        <div class="error" id="emailError">Please enter a valid email address</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" required>
+                        <div class="error" id="subjectError">Please enter a subject</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Your Message</label>
+                        <textarea id="message" name="message" required></textarea>
+                        <div class="error" id="messageError">Please enter your message</div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message 🌸</button>
+                </form>
+
+                <div class="success-message" id="successMessage">
+                    🌸 Thank you for reaching out! Your message has been sent successfully. I'll get back to you soon!
+                </div>
+
+                <div class="social-links">
+                    <a href="https://github.com" target="_blank" class="social-link" title="GitHub">
+                        <span>💻</span>
+                    </a>
+                    <a href="https://linkedin.com" target="_blank" class="social-link" title="LinkedIn">
+                        <span>💼</span>
+                    </a>
+                    <a href="https://twitter.com" target="_blank" class="social-link" title="Twitter">
+                        <span>🐦</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Navigation functionality
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        const navLinksItems = document.querySelectorAll('.nav-link');
+        const pages = document.querySelectorAll('.page');
+        const navbar = document.getElementById('navbar');
+
+        // Toggle mobile menu
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Page navigation
+        function navigateToPage(pageId) {
+            // Hide all pages
+            pages.forEach(page => page.classList.remove('active'));
+            
+            // Show selected page
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
+
+            // Update active nav link
+            navLinksItems.forEach(link => link.classList.remove('active'));
+            const activeLink = document.querySelector(`[data-page="${pageId}"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+
+            // Close mobile menu
+            hamburger.classList.remove('active');
+            navLinks.classList.remove('active');
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Add click events to nav links
+        navLinksItems.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const pageId = link.getAttribute('data-page');
+                navigateToPage(pageId);
+            });
+        });
+
+        // Add click events to CTA buttons
+        document.querySelectorAll('[data-page]').forEach(btn => {
+            if (!btn.classList.contains('nav-link')) {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const pageId = btn.getAttribute('data-page');
+                    navigateToPage(pageId);
+                });
+            }
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Typing animation
+        const typingElement = document.getElementById('typing');
+        const phrases = [
+            'Software Developer 💻',
+            'Problem Solver 🧩',
+            'Lifelong Learner 📚',
+            'Creative Thinker 💡'
+        ];
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typingSpeed = 100;
+
+        function typeText() {
+            const currentPhrase = phrases[phraseIndex];
+            
+            if (isDeleting) {
+                typingElement.textContent = currentPhrase.substring(0, charIndex - 1);
+                charIndex--;
+                typingSpeed = 50;
+            } else {
+                typingElement.textContent = currentPhrase.substring(0, charIndex + 1);
+                charIndex++;
+                typingSpeed = 100;
+            }
+
+            if (!isDeleting && charIndex === currentPhrase.length) {
+                isDeleting = true;
+                typingSpeed = 2000; // Pause at end
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                typingSpeed = 500; // Pause before next phrase
+            }
+
+            setTimeout(typeText, typingSpeed);
+        }
+
+        // Start typing animation
+        typeText();
+
+        // Project filtering
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                button.classList.add('active');
+
+                const filter = button.getAttribute('data-filter');
+
+                projectCards.forEach(card => {
+                    if (filter === 'all') {
+                        card.style.display = 'block';
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'scale(1)';
+                        }, 10);
+                    } else {
+                        const categories = card.getAttribute('data-category');
+                        if (categories.includes(filter)) {
+                            card.style.display = 'block';
+                            setTimeout(() => {
+                                card.style.opacity = '1';
+                                card.style.transform = 'scale(1)';
+                            }, 10);
+                        } else {
+                            card.style.opacity = '0';
+                            card.style.transform = 'scale(0.8)';
+                            setTimeout(() => {
+                                card.style.display = 'none';
+                            }, 300);
+                        }
+                    }
+                });
+            });
+        });
+
+        // Form validation and submission
+        const contactForm = document.getElementById('contactForm');
+        const successMessage = document.getElementById('successMessage');
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Get form values
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const subject = document.getElementById('subject').value.trim();
+            const message = document.getElementById('message').value.trim();
+
+            // Validation
+            let isValid = true;
+
+            // Name validation
+            if (name === '') {
+                showError('nameError');
+                isValid = false;
+            } else {
+                hideError('nameError');
+            }
+
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showError('emailError');
+                isValid = false;
+            } else {
+                hideError('emailError');
+            }
+
+            // Subject validation
+            if (subject === '') {
+                showError('subjectError');
+                isValid = false;
+            } else {
+                hideError('subjectError');
+            }
+
+            // Message validation
+            if (message === '') {
+                showError('messageError');
+                isValid = false;
+            } else {
+                hideError('messageError');
+            }
+
+            // If form is valid, show success message
+            if (isValid) {
+                contactForm.reset();
+                successMessage.style.display = 'block';
+                
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                }, 5000);
+            }
+        });
+
+        function showError(elementId) {
+            document.getElementById(elementId).style.display = 'block';
+        }
+
+        function hideError(elementId) {
+            document.getElementById(elementId).style.display = 'none';
+        }
+
+        // Hide errors on input
+        document.querySelectorAll('input, textarea').forEach(input => {
+            input.addEventListener('input', () => {
+                const errorId = input.id + 'Error';
+                hideError(errorId);
+            });
+        });
+    </script>
+</body>
+</html>

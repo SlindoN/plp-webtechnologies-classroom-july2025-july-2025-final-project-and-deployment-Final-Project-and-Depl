@@ -1,90 +1,54 @@
-# 📦 Final Assignment: Build, Organize, and Deploy a Multipage Website
+# S'lindokuhle Nzimande - Portfolio Website
 
-You're now ready to bring everything together—HTML, CSS, JavaScript, planning, structure, and deployment. This final project challenges you to **conceptualize, build, and deploy a multi-page website** that is responsive, interactive, and ready for the real world.
+A beautiful, responsive portfolio website showcasing my software development journey with a fresh pastel spring aesthetic.
 
-This assignment will guide you from planning your site all the way to deploying it online. Let’s make your project *production-worthy*! 🚀
+## 🌸 About This Project
 
----
+This portfolio represents my growth as a developer, featuring:
+- 5 fully responsive pages
+- Interactive project filtering
+- Smooth animations and transitions
+- Contact form with validation
+- Mobile-first design approach
 
-## 🌐🎯 Part 1: Planning and Organizing a Multipage Website
+## 🛠️ Built With
 
-Before you write any code, take time to plan:
+- HTML5 - Semantic structure
+- CSS3 - Modern styling with Flexbox/Grid
+- JavaScript (Vanilla) - Interactive functionality
+- Pastel Spring Color Palette
 
-* Define your website's purpose (portfolio, product showcase, blog, etc.)
-* Outline 3–5 pages (e.g., Home, About, Services, Contact, Gallery)
-* Sketch or describe the layout of each page
-* Map out internal navigation (how pages link to one another)
+## 🌐 Live Demo
 
-**Goal:** Show intentional structure and user journey across the site.
+[View Live Site](https://your-username.github.io/portfolio)
 
----
+## 📂 Project Structure
+```
+portfolio/
+├── index.html          # Main HTML file (all pages included)
+└── README.md          # Project documentation
+```
 
-## 🌍💻 Part 2: Build the Website Using HTML5, CSS, and JavaScript
+## ✨ Features
 
-Using your plan, begin building:
+- **Responsive Design**: Works on all devices
+- **Smooth Navigation**: Single-page app feel
+- **Project Filtering**: Filter projects by category
+- **Form Validation**: Client-side validation for contact form
+- **Typing Animation**: Dynamic text on hero section
+- **Hover Effects**: Interactive UI elements
 
-* Use HTML5 for semantic structure
-* Apply CSS for responsive layout, styling, and animations
-* Use JavaScript to add interactivity (menus, forms, toggles, dynamic content)
+## 🚀 Deployment
 
-Each page should:
+Deployed using [GitHub Pages/Netlify/Vercel]
 
-* Be mobile-responsive
-* Share a consistent layout/header/footer
-* Include at least one interactive element (e.g., form validation, toggle menu, animation on scroll)
+## 📧 Contact
 
-**Goal:** Integrate everything you’ve learned in a cohesive, functioning project.
-
----
-
-## 🛠️🚀 Part 3: Best Practices for Code Organization
-
-Before deployment, refactor your project to follow production-friendly practices:
-
-* Organize files in folders (`/css`, `/js`, `/images`, etc.)
-* Write clean, modular, and commented code
-* Use meaningful file names and relative paths
-* Validate your HTML/CSS and test on different screen sizes
-
-**Goal:** Prepare your codebase to be readable, maintainable, and scalable.
-
----
-
-## 🌐🚀 Part 4: Introduction to Hosting and Deployment
-
-Once your project is complete, choose a method to **host your site online**.
-
-You can use:
-
-* **GitHub Pages** (great for portfolios and static sites)
-* **Netlify** (powerful CI/CD features and easy form support)
-* **Vercel** (lightning-fast deployment for frontend projects)
-
-Deploy your project and confirm that:
-
-* All links and scripts work
-* It loads properly on mobile and desktop
-* It has a clear, shareable URL
-
-**Goal:** Publish your work online and make it accessible to the world.
+Feel free to reach out!
+- GitHub: [@your-username]
+- LinkedIn: [Your Profile]
+- Email: your.email@example.com
 
 ---
 
-## Deliverables
-
-1. A GitHub repository containing:
-
-   * Your complete project code, properly organized
-   * A `README.md` file explaining your project purpose, structure, and live URL
-2. A live deployed website (hosted via GitHub Pages, Netlify, or Vercel)
-
----
-
-## Outcome
-
-* Clarity and thoroughness of planning documentation
-* Proper use of HTML5, CSS, and JavaScript across multiple pages
-* Responsive and accessible design
-* Clean, well-organized, and commented code
-* Successful live deployment with a working link
-* Evidence of following best practices
+Made with 💚 and lots of ☕
